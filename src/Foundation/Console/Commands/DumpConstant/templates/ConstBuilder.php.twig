@@ -1,0 +1,116 @@
+<?php
+
+namespace Fifa2018;
+
+class Constants {
+
+    private static $storage = [];
+
+    public static function get($name) {
+
+        if (!array_key_exists($name, self::$storage)) {
+            return null;
+        }
+
+        return self::$storage[$name];
+
+    }
+
+    public static function register($constName, $value) {
+
+        self::$storage[$constName] = $value;
+
+    }
+
+
+}
+
+/**
+ * Сгенерировано disposer dump-constants
+ * ВНИМАНИЕ!!! Файл генерируется автоматически. Все внесенные в этот файл изменения
+ * могут быть удалены.
+ */
+
+{% if iblock_consts is defined %}
+
+/**
+ * ----------------------------------------
+ * Константы инфоблоков
+ * ----------------------------------------
+ */
+
+{% for type, iblocks in iblock_consts  %}
+/**
+ * ТИП ИБ: {{ type }}
+ */
+    {% for iblock in iblocks %}
+    // Инфоблок {{ iblock.name }}, Сайт: {{ iblock.site_id }}
+    define ('{{ iblock.code }}', {{ iblock.id }});
+    {% endfor %}
+
+{% endfor %}
+
+/**
+ * ----------------------------------------
+ * Группировка инфоблоков
+ * ----------------------------------------
+ */
+
+{% for type, iblocks in iblock_consts  %}
+
+    Constants::register('IBLOCK_TYPE_{{ type }}', [
+
+    {% for iblock in iblocks %}
+        // Инфоблок {{ iblock.name }}, Сайт: {{ iblock.site_id }}
+        {{ iblock.code }},
+    {% endfor %}
+
+    ]);
+{% endfor %}
+
+{% endif %}
+
+{% if highload_consts is defined %}
+
+/**
+ * ----------------------------------------
+ * Константы highload-блоков
+ * ----------------------------------------
+ */
+
+{% for highload in highload_consts  %}
+    // Инфоблок {{ highload.name }}
+    define ('{{ highload.code }}', {{ highload.id }});
+{% endfor %}
+
+{% endif %}
+
+{% if form_consts is defined %}
+
+/**
+ * ----------------------------------------
+ * Константы FORM
+ * ----------------------------------------
+ */
+
+{% for form in form_consts  %}
+    // Форма {{ form.name }}
+    define ('{{ form.code }}', {{ form.id }});
+{% endfor %}
+
+{% endif %}
+
+{% if price_consts is defined %}
+
+/**
+ * ----------------------------------------
+ * Константы типов цен
+ * ----------------------------------------
+ */
+
+{% for price in price_consts  %}
+    // Цена типа {{ price.name }}
+    define ('{{ price.code }}', {{ price.id }});
+{% endfor %}
+
+{% endif %}
